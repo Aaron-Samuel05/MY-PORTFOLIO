@@ -5,63 +5,50 @@ import { GithubIcon } from './SocialIcons';
 import { projects } from '../data/projects';
 import './Projects.css';
 
-/* ── Ping Pong Visual Preview ─────────────────── */
-function PingPongPreview() {
-  return (
-    <div className="project-preview project-preview--pingpong" aria-hidden="true">
-      <div className="pp-court">
-        <div className="pp-net" />
-        <div className="pp-score">
-          <span>07</span>
-          <span className="pp-score-sep">:</span>
-          <span>05</span>
-        </div>
-        <div className="pp-paddle pp-paddle--left" />
-        <div className="pp-paddle pp-paddle--right" />
-        <div className="pp-ball" />
-      </div>
-      <div className="pp-label">Ping Pong — Live Gameplay</div>
-    </div>
-  );
-}
+function ProjectPreview({ type }) {
+  const configs = {
+    fitcheck: {
+      className: 'project-preview--fitcheck',
+      eyebrow: 'FITCHECK',
+      title: 'TRAIN SMART',
+      stat: '74%',
+      label: 'WEEKLY PROGRESS',
+      pills: ['WORKOUT', 'PROGRESS', 'GOALS'],
+    },
+    'res-tech': {
+      className: 'project-preview--res-tech',
+      eyebrow: 'RES TECHNOLOGIES',
+      title: 'TECH SOLUTIONS',
+      stat: '24/7',
+      label: 'DIGITAL SUPPORT',
+      pills: ['WEB', 'SOFTWARE', 'SOLUTIONS'],
+    },
+    crypto: {
+      className: 'project-preview--crypto',
+      eyebrow: 'CRYPTO MINING',
+      title: 'MINING SIMULATOR',
+      stat: '12.8 MH/s',
+      label: 'SIMULATED HASHRATE',
+      pills: ['MINER', 'WALLET', 'UPGRADE'],
+    },
+  };
+  const item = configs[type] || configs.fitcheck;
 
-/* ── Flexify Visual Preview ───────────────────── */
-function FlexifyPreview() {
-  const bars = [65, 80, 45, 90, 55, 70, 85];
-  const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   return (
-    <div className="project-preview project-preview--flexify" aria-hidden="true">
-      <div className="fx-header">
-        <span className="fx-app-name">Flexify</span>
-        <span className="fx-badge">Active</span>
-      </div>
-      <div className="fx-stats">
-        <div className="fx-stat">
-          <span className="fx-stat-num">5</span>
-          <span className="fx-stat-label">Workouts</span>
+    <div className={`project-preview ${item.className}`} aria-hidden="true">
+      <div className="preview-grid" />
+      <div className="preview-content">
+        <span className="preview-eyebrow">{item.eyebrow}</span>
+        <strong className="preview-title">{item.title}</strong>
+        <div className="preview-stat-row">
+          <span className="preview-stat">{item.stat}</span>
+          <span className="preview-label">{item.label}</span>
         </div>
-        <div className="fx-stat">
-          <span className="fx-stat-num">12k</span>
-          <span className="fx-stat-label">Calories</span>
-        </div>
-        <div className="fx-stat">
-          <span className="fx-stat-num">3h</span>
-          <span className="fx-stat-label">Active</span>
+        <div className="preview-pills">
+          {item.pills.map(pill => <span key={pill}>{pill}</span>)}
         </div>
       </div>
-      <div className="fx-chart">
-        {bars.map((h, i) => (
-          <div key={i} className="fx-bar-wrap">
-            <div className="fx-bar" style={{ height: `${h}%` }} />
-            <span className="fx-day">{days[i]}</span>
-          </div>
-        ))}
-      </div>
-      <div className="fx-exercises">
-        {['Push-ups', 'Squats', 'Deadlift'].map(ex => (
-          <div key={ex} className="fx-exercise-pill">{ex}</div>
-        ))}
-      </div>
+      <div className="preview-orb" />
     </div>
   );
 }
@@ -78,12 +65,10 @@ function ProjectCard({ project, index }) {
       animate={cardIsInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.12 }}
     >
-      {/* Visual Preview */}
       <div className="project-card__preview">
-        {project.type === 'pingpong' ? <PingPongPreview /> : <FlexifyPreview />}
+        <ProjectPreview type={project.type} />
       </div>
 
-      {/* Card Body */}
       <div className="project-card__body">
         <div className="project-card__meta">
           <span className="project-card__category">{project.category}</span>
@@ -98,59 +83,27 @@ function ProjectCard({ project, index }) {
 
         <p className="project-card__desc">{project.shortDescription}</p>
 
-        {/* Tech Stack */}
         <div className="project-card__tech">
           {project.technologies.map(tech => (
             <span key={tech} className="tech-badge">{tech}</span>
           ))}
         </div>
 
-        {/* Actions */}
         <div className="project-card__actions">
-          {project.githubUrl ? (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline btn-sm"
-              aria-label={`View ${project.title} on GitHub`}
-            >
-              <GithubIcon size={14} />
-              GitHub
-            </a>
-          ) : (
-            <button
-              className="btn btn-disabled btn-sm"
-              disabled
-              title="GitHub link coming soon"
-              aria-label="GitHub link coming soon"
-            >
-              <GithubIcon size={14} />
-              GitHub
-            </button>
-          )}
-
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">
+            <GithubIcon size={14} />
+            GitHub
+          </a>
           {project.liveUrl ? (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-ghost btn-sm"
-              aria-label={`View ${project.title} live demo`}
-            >
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
               <ExternalLink size={14} />
               Live Demo
             </a>
           ) : (
-            <button
-              className="btn btn-disabled btn-sm"
-              disabled
-              title="Live demo coming soon"
-              aria-label="Live demo coming soon"
-            >
+            <span className="btn btn-disabled btn-sm" aria-disabled="true">
               <ExternalLink size={14} />
               Live Demo
-            </button>
+            </span>
           )}
         </div>
       </div>
@@ -174,7 +127,7 @@ export default function Projects() {
           <span className="section-label">Featured Projects</span>
           <h2 className="section-heading">A Few Things I've Built</h2>
           <p className="section-subheading">
-            Selected projects that demonstrate my interest in building real, functional software.
+            A selection of projects spanning web applications, business websites, fitness tools, and interactive simulations.
           </p>
         </motion.div>
 
@@ -183,15 +136,6 @@ export default function Projects() {
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
-
-        <motion.p
-          className="projects__note"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6, duration: 0.5 }}
-        >
-          GitHub and live demo links will be added as projects are published.
-        </motion.p>
       </div>
     </section>
   );
