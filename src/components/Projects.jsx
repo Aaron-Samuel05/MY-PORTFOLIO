@@ -6,6 +6,17 @@ import { projects } from '../data/projects';
 import './Projects.css';
 
 function ProjectPreview({ type }) {
+  if (type === 'nts') return (
+    <div className="project-preview project-preview--nts" aria-hidden="true">
+      <div className="preview-grid" />
+      <div className="nts-glow" />
+      <div className="nts-copy"><span>NTS BLENDERS & DISTILLERS</span><strong>CRAFTED<br/>WITH CHARACTER.</strong><small>Premium spirits / 2026</small></div>
+      <div className="nts-bottle"><div className="nts-neck"/><div className="nts-label">NTS</div></div>
+      <div className="nts-orbit"/>
+      <div className="nts-chip">EXPERIENCE THE BRAND</div>
+    </div>
+  );
+
   if (type === 'fitcheck') return (
     <div className="project-preview project-preview--fitcheck" aria-hidden="true">
       <div className="preview-grid" />
