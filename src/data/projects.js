@@ -1,5 +1,20 @@
 export const projects = [
   {
+    id: 8,
+    title: "NTS Blenders & Distillers",
+    subtitle: "Premium Spirits Brand Website",
+    shortDescription:
+      "A cinematic brand website for NTS Blenders & Distillers, combining premium product storytelling, immersive motion, 3D visuals, and responsive experiences.",
+    description:
+      "A premium spirits brand website built with a strong visual system, interactive motion, responsive layouts, and immersive product presentation.",
+    technologies: ["React.js", "Three.js", "GSAP", "Framer Motion", "Vite"],
+    category: "Brand / 3D Website",
+    githubUrl: "https://github.com/Aaron-Samuel05/nts",
+    liveUrl: null,
+    featured: true,
+    type: "nts",
+  },
+  {
     id: 1,
     title: "FitCheck",
     subtitle: "AI Fitness & Style Experience",
