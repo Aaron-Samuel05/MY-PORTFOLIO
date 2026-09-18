@@ -1,7 +1,73 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Copy, Check, Sparkles, MessageCircle } from 'lucide-react';
-import { LinkedinIcon, GithubIcon, InstagramIcon } from './SocialIcons';
+import { GithubIcon, InstagramIcon } from './SocialIcons';
+import './Contact.css';
+
+export default function Contact() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const email = 'aaronsamuel0205@gmail.com';
+  const phone = '+91 9791056098';
+  const phoneRaw = '9791056098';
+  const whatsappUrl = 'https://wa.me/919791056098';
+
+  const copyToClipboard = (text, type) => {
+    navigator.clipboard.writeText(text);
+    if (type === 'email') { setCopiedEmail(true); setTimeout(() => setCopiedEmail(false), 2000); }
+    else { setCopiedPhone(true); setTimeout(() => setCopiedPhone(false), 2000); }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    setSubmitting(true); setSubmitError('');
+    try {
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Unable to send your message right now.');
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Unable to send your message right now.');
+    } finally { setSubmitting(false); }
+  };
+
+  return (
+    <section id="contact" className="section contact" ref={ref}>
+      <div className="container">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }} className="contact__header">
+          <span className="section-label">Have a Project?</span>
+          <h2 className="section-heading">Let's Build Something Together</h2>
+          <p className="section-subheading">
+            Need a website, web app, mobile app, or a complete UI/UX design? Tell me what you're building and let's turn the idea into a polished digital experience.
+          </p>
+        </motion.div>
+
+        <div className="contact__grid">
+          <motion.div className="contact__info" initial={{ opacity: 0, x: -30 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.15 }}>
+            <div className="contact__card card">
+              <div className="contact__card-icon"><Mail size={20} /></div>
+              <div className="contact__card-details"><span className="contact__card-label">Email Address</span><a href={`mailto:${email}`} className="contact__card-value">{email}</a></div>
+              <button className="contact__copy-btn" onClick={() => copyToClipboard(email, 'email')} title="Copy Email" aria-label="Copy Email">{copiedEmail ? <Check size={16} className="text-success" /> : <Copy size={16} />}</button>
+            </div>
+            <div className="contact__card card">
+              <div className="contact__card-icon"><Phone size={20} /></div>
+              <div className="contact__card-details"><span className="contact__card-label">Phone &amp; WhatsApp</span><div className="contact__phone-row"><a href={`tel:${phoneRaw}`} className="contact__card-value">{phone}</a><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="contact__wa-badge" title="Chat on WhatsApp"><MessageCircle size={12} /> WhatsApp</a></div></div>
+              <button className="contact__copy-btn" onClick={() => copyToClipboard(phoneRaw, 'phone')} title="Copy Phone Number" aria-label="Copy Phone Number">{copiedPhone ? <Check size={16} className="text-success" /> : <Copy size={16} />}</button>
+            </div>
+            <div className="contact__card card"><div className="contact__card-icon"><GithubIcon size={20} /></div><div className="contact__card-details"><span className="contact__card-label">GitHub Profile</span><a href="https://github.com/Aaron-Samuel05" target="_blank" rel="noopener noreferrer" className="contact__card-value contact__card-link">github.com/Aaron-Samuel05</a></div></div>
+, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Mail, Phone, MapPin, Send, Copy, Check, Sparkles, MessageCircle } from 'lucide-react';
+import { GithubIcon, InstagramIcon } from './SocialIcons';
 import './Contact.css';
 
 export default function Contact() {
