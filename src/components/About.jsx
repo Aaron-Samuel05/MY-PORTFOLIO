@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { MapPin, GraduationCap, Cpu, Lightbulb, Github, ExternalLink } from 'lucide-react';
+import { MapPin, Cpu, Lightbulb, Github, ExternalLink } from 'lucide-react';
 import './About.css';
 
 const stats = [
-  { value: 'B.Tech CSE', label: 'Computer Science & Engineering', icon: GraduationCap },
-  { value: '8.08', label: 'Current CGPA', icon: null },
-  { value: '2027', label: 'Expected Graduation', icon: null },
+  { value: 'Full-Stack', label: 'Web & App Development', icon: null },
+  { value: 'UI/UX', label: 'Design & Prototyping', icon: null },
   { value: '7+', label: 'Featured Projects', icon: null },
+  { value: 'Open', label: 'For Client Projects', icon: null },
 ];
 
 const highlights = [
@@ -49,7 +49,7 @@ export default function About() {
             <span className="section-label">About Me</span>
             <h2 className="section-heading">The Person Behind the Code</h2>
             <p className="section-subheading">
-              A Computer Science &amp; Engineering student at SRM Institute of Science and Technology, Chennai — building things with curiosity and intention.
+              A developer and designer focused on building modern digital experiences with curiosity, intention, and attention to detail.
             </p>
           </motion.div>
 
@@ -61,7 +61,7 @@ export default function About() {
                   <span>Chennai, India</span>
                 </div>
                 <p className="about__text">
-                  I'm a Computer Science and Engineering student passionate about leveraging technology to solve real-world problems. My focus spans Python, SQL, Machine Learning and Generative AI, with a strong interest in extracting meaningful insights from data to drive informed decision-making.
+                  I'm a full-stack web and app developer and UI/UX designer who enjoys turning ideas into polished, practical digital products. I work across frontend, backend, responsive interfaces, and interactive experiences.
                 </p>
                 <p className="about__text">
                   I enjoy the intersection of intelligent systems and practical applications — and I'm always curious about what comes next.
