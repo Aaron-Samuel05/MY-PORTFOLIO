@@ -55,7 +55,7 @@ export const projects = [
     technologies: ["HTML", "CSS", "JavaScript"],
     category: "Simulation / Game",
     githubUrl: "https://github.com/Aaron-Samuel05/C4-Crypto-mining-simulator",
-    liveUrl: null,
+    liveUrl: "https://cryptominingsim.vercel.app/",
     featured: true,
     type: "crypto",
   },
