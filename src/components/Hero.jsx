@@ -6,10 +6,10 @@ import './Hero.css';
 
 const terminalLines = [
   { prefix: '$ ', text: 'whoami', delay: 0.6 },
-  { prefix: '> ', text: 'Computer Science Student', delay: 1.1, highlight: true },
-  { prefix: '> ', text: 'Developer', delay: 1.6, highlight: true },
+  { prefix: '> ', text: 'Full-Stack Web & App Developer', delay: 1.1, highlight: true },
+  { prefix: '> ', text: 'UI/UX Designer', delay: 1.6, highlight: true },
   { prefix: '> ', text: 'Problem Solver', delay: 2.1, highlight: true },
-  { prefix: '> ', text: 'Tech Enthusiast', delay: 2.6, highlight: true },
+  { prefix: '> ', text: 'Digital Experience Builder', delay: 2.6, highlight: true },
   { prefix: '$ ', text: '▋', delay: 3.1, cursor: true },
 ];
 
@@ -17,9 +17,10 @@ function TerminalCard() {
   const [visibleLines, setVisibleLines] = useState(0);
 
   useEffect(() => {
-    terminalLines.forEach((line, i) => {
-      setTimeout(() => setVisibleLines(i + 1), line.delay * 1000);
-    });
+    const timers = terminalLines.map((line, i) =>
+      setTimeout(() => setVisibleLines(i + 1), line.delay * 1000)
+    );
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
@@ -46,146 +47,50 @@ function TerminalCard() {
 }
 
 export default function Hero() {
-  const scrollToWork = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-  };
-  const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollToWork = () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToContact = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <section id="home" className="hero section">
       <div className="container hero__inner">
-        {/* Left: Content */}
         <div className="hero__content">
-          {/* Status badge */}
-          <motion.div
-            className="hero__status"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <motion.div className="hero__status" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
             <span className="status-dot" />
-            <span>Open to opportunities</span>
+            <span>Available for freelance projects</span>
           </motion.div>
 
-          {/* Heading */}
-          <motion.h1
-            className="hero__heading"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Hi, I'm{' '}
-            <span className="gradient-text">Aaron Samuel.</span>
+          <motion.h1 className="hero__heading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+            Hi, I'm{' '}<span className="gradient-text">Aaron Samuel.</span>
           </motion.h1>
 
-          {/* Sub-heading */}
-          <motion.p
-            className="hero__subheading"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-          >
-            Computer Science Engineer&nbsp;•&nbsp;Developer&nbsp;•&nbsp;Tech Enthusiast
+          <motion.p className="hero__subheading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}>
+            Full-Stack Web &amp; App Developer&nbsp;•&nbsp;UI/UX Designer
           </motion.p>
 
-          {/* Body */}
-          <motion.p
-            className="hero__body"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            Building practical digital experiences with code, curiosity and a passion for technology.
+          <motion.p className="hero__body" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
+            I design and build modern websites, web apps and mobile experiences — from the interface and user experience to the full-stack implementation. Have a project in mind? Let's build it.
           </motion.p>
 
-          {/* CTA Buttons */}
-          <motion.div
-            className="hero__cta"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.65 }}
-          >
-            <button className="btn btn-primary" onClick={scrollToWork}>
-              View My Work
-              <ChevronRight size={16} />
-            </button>
-            <button className="btn btn-outline" onClick={scrollToContact}>
-              Contact Me
-            </button>
-            <a
-              href="https://github.com/Aaron-Samuel05"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-ghost"
-              aria-label="GitHub Profile"
-            >
-              <GithubIcon size={16} />
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/aaronsamuel05"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-ghost"
-              aria-label="LinkedIn Profile"
-            >
-              <LinkedinIcon size={16} />
-              LinkedIn
-            </a>
-            <a
-              href="https://www.instagram.com/aaron_samuel05/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-ghost"
-              aria-label="Instagram Profile"
-            >
-              <InstagramIcon size={16} />
-              Instagram
-            </a>
+          <motion.div className="hero__cta" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.65 }}>
+            <button className="btn btn-primary" onClick={scrollToWork}>View My Work <ChevronRight size={16} /></button>
+            <button className="btn btn-outline" onClick={scrollToContact}>Build With Me</button>
+            <a href="https://github.com/Aaron-Samuel05" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="GitHub Profile"><GithubIcon size={16} />GitHub</a>
+            <a href="https://www.linkedin.com/in/aaronsamuel05" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="LinkedIn Profile"><LinkedinIcon size={16} />LinkedIn</a>
+            <a href="https://www.instagram.com/aaron_samuel05/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="Instagram Profile"><InstagramIcon size={16} />Instagram</a>
           </motion.div>
 
-          {/* Scroll hint */}
-          <motion.div
-            className="hero__scroll-hint"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 0.6 }}
-          >
-            <ArrowDown size={14} />
-            <span>Scroll to explore</span>
+          <motion.div className="hero__scroll-hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2, duration: 0.6 }}>
+            <ArrowDown size={14} /><span>Scroll to explore</span>
           </motion.div>
         </div>
 
-        {/* Right: Terminal Visual */}
-        <motion.div
-          className="hero__visual"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
-        >
+        <motion.div className="hero__visual" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}>
           <TerminalCard />
-
-          {/* Floating info chips */}
-          <motion.div
-            className="hero__chip hero__chip--location"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.2 }}
-          >
-            <span>📍</span>
-            <span>Chennai, India</span>
+          <motion.div className="hero__chip hero__chip--location" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2 }}>
+            <span>📍</span><span>Chennai, India</span>
           </motion.div>
-
-          <motion.div
-            className="hero__chip hero__chip--stack"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1.5 }}
-          >
-            <span>⚡</span>
-            <span>Python · Java · ML</span>
+          <motion.div className="hero__chip hero__chip--stack" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.5 }}>
+            <span>⚡</span><span>Web · Apps · UI/UX</span>
           </motion.div>
         </motion.div>
       </div>
