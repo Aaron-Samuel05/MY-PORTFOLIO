@@ -1,7 +1,84 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ChevronRight } from 'lucide-react';
-import { LinkedinIcon, GithubIcon, InstagramIcon } from './SocialIcons';
+import { GithubIcon, InstagramIcon } from './SocialIcons';
+import './Hero.css';
+
+const terminalLines = [
+  { prefix: '$ ', text: 'whoami', delay: 0.6 },
+  { prefix: '> ', text: 'Full-Stack Web & App Developer', delay: 1.1, highlight: true },
+  { prefix: '> ', text: 'UI/UX Designer', delay: 1.6, highlight: true },
+  { prefix: '> ', text: 'Problem Solver', delay: 2.1, highlight: true },
+  { prefix: '> ', text: 'Digital Experience Builder', delay: 2.6, highlight: true },
+  { prefix: '$ ', text: '▋', delay: 3.1, cursor: true },
+];
+
+function TerminalCard() {
+  const [visibleLines, setVisibleLines] = useState(0);
+
+  useEffect(() => {
+    const timers = terminalLines.map((line, i) =>
+      setTimeout(() => setVisibleLines(i + 1), line.delay * 1000)
+    );
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div className="terminal-card" aria-label="Terminal preview">
+      <div className="terminal-card__header">
+        <span className="terminal-dot terminal-dot--red" />
+        <span className="terminal-dot terminal-dot--yellow" />
+        <span className="terminal-dot terminal-dot--green" />
+        <span className="terminal-card__title">aaron@portfolio:~</span>
+      </div>
+      <div className="terminal-card__body">
+        {terminalLines.slice(0, visibleLines).map((line, i) => (
+          <div
+            key={i}
+            className={`terminal-line ${line.highlight ? 'terminal-line--highlight' : ''} ${line.cursor ? 'terminal-line--cursor' : ''}`}
+          >
+            <span className="terminal-prefix">{line.prefix}</span>
+            <span className={line.cursor ? 'terminal-cursor' : ''}>{line.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Hero() {
+  const scrollToWork = () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToContact = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+
+  return (
+    <section id="home" className="hero section">
+      <div className="container hero__inner">
+        <div className="hero__content">
+          <motion.div className="hero__status" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+            <span className="status-dot" />
+            <span>Available for freelance projects</span>
+          </motion.div>
+
+          <motion.h1 className="hero__heading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+            Hi, I'm{' '}<span className="gradient-text">Aaron Samuel.</span>
+          </motion.h1>
+
+          <motion.p className="hero__subheading" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}>
+            Full-Stack Web &amp; App Developer&nbsp;•&nbsp;UI/UX Designer
+          </motion.p>
+
+          <motion.p className="hero__body" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
+            I design and build modern websites, web apps and mobile experiences — from the interface and user experience to the full-stack implementation. Have a project in mind? Let's build it.
+          </motion.p>
+
+          <motion.div className="hero__cta" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.65 }}>
+            <button className="btn btn-primary" onClick={scrollToWork}>View My Work <ChevronRight size={16} /></button>
+            <button className="btn btn-outline" onClick={scrollToContact}>Build With Me</button>
+            <a href="https://github.com/Aaron-Samuel05" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" aria-label="GitHub Profile"><GithubIcon size={16} />GitHub</a>
+te, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowDown, ChevronRight } from 'lucide-react';
+import { GithubIcon, InstagramIcon } from './SocialIcons';
 import './Hero.css';
 
 const terminalLines = [
