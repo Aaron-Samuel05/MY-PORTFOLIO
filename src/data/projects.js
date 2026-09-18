@@ -40,7 +40,7 @@ export const projects = [
     technologies: ["React.js", "JavaScript", "CSS", "Vite"],
     category: "Business Website",
     githubUrl: "https://github.com/Aaron-Samuel05/RES-TECHNOLOGY",
-    liveUrl: null,
+    liveUrl: "https://restechnologies.vercel.app/#contact",
     featured: true,
     type: "res-tech",
   },
