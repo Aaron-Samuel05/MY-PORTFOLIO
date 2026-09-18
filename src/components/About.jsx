@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { MapPin, GraduationCap, Cpu, Lightbulb } from 'lucide-react';
+import { MapPin, GraduationCap, Cpu, Lightbulb, Github, ExternalLink } from 'lucide-react';
 import './About.css';
 
 const stats = [
   { value: 'B.Tech CSE', label: 'Computer Science & Engineering', icon: GraduationCap },
   { value: '8.08', label: 'Current CGPA', icon: null },
   { value: '2027', label: 'Expected Graduation', icon: null },
-  { value: '2+', label: 'Featured Projects', icon: null },
+  { value: '7+', label: 'Featured Projects', icon: null },
 ];
 
 const highlights = [
@@ -45,7 +45,6 @@ export default function About() {
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
         >
-          {/* Header */}
           <motion.div className="about__header" variants={itemVariants}>
             <span className="section-label">About Me</span>
             <h2 className="section-heading">The Person Behind the Code</h2>
@@ -55,7 +54,6 @@ export default function About() {
           </motion.div>
 
           <div className="about__grid">
-            {/* Left: Text + highlights */}
             <div className="about__left">
               <motion.div className="about__intro" variants={itemVariants}>
                 <div className="about__location">
@@ -85,7 +83,6 @@ export default function About() {
               </motion.div>
             </div>
 
-            {/* Right: Stats */}
             <motion.div className="about__stats" variants={itemVariants}>
               {stats.map(({ value, label }) => (
                 <div key={label} className="about__stat card">
@@ -95,6 +92,43 @@ export default function About() {
               ))}
             </motion.div>
           </div>
+
+          <motion.div className="github-activity" variants={itemVariants}>
+            <div className="github-activity__header">
+              <div>
+                <span className="section-label">Open Source</span>
+                <h3 className="github-activity__title">GitHub Activity</h3>
+                <p className="github-activity__subtitle">
+                  A live view of my coding activity and contributions.
+                </p>
+              </div>
+              <a
+                className="github-activity__profile"
+                href="https://github.com/Aaron-Samuel05"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open Aaron Samuel's GitHub profile"
+              >
+                <Github size={18} />
+                <span>View GitHub</span>
+                <ExternalLink size={14} />
+              </a>
+            </div>
+
+            <a
+              className="github-activity__graph"
+              href="https://github.com/Aaron-Samuel05"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open GitHub profile"
+            >
+              <img
+                src="https://github.com/users/Aaron-Samuel05/contributions"
+                alt="GitHub contribution activity for Aaron Samuel"
+                loading="lazy"
+              />
+            </a>
+          </motion.div>
         </motion.div>
       </div>
     </section>
