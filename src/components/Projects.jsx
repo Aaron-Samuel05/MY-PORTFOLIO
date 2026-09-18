@@ -26,6 +26,36 @@ function ProjectPreview({ type }) {
     </div>
   );
 
+  if (type === 'dragcarz') return (
+    <div className="project-preview project-preview--dragcarz" aria-hidden="true">
+      <div className="preview-grid" />
+      <div className="drag-lines" />
+      <div className="drag-copy"><span>DRAGCARZ</span><strong>BUILT FOR<br/>SPEED.</strong><small>Performance / Automotive</small></div>
+      <div className="drag-car"><div className="car-roof"/><div className="car-body"/><i/><i/></div>
+      <div className="drag-chip">LAUNCH SYSTEM <b>●</b></div>
+    </div>
+  );
+
+  if (type === 'alc') return (
+    <div className="project-preview project-preview--alc" aria-hidden="true">
+      <div className="preview-grid" />
+      <div className="alc-copy"><span>ALC SHOWCASE</span><strong>PRODUCT<br/>IN MOTION.</strong><small>Interactive product experience</small></div>
+      <div className="alc-bottle"><div/><i/><i/></div>
+      <div className="alc-ring"/>
+      <div className="alc-chip">SWIPE TO EXPLORE</div>
+    </div>
+  );
+
+  if (type === 'femi9' || type === 'femi9-commerce') return (
+    <div className={`project-preview project-preview--${type}`} aria-hidden="true">
+      <div className="preview-grid" />
+      <div className="femi-copy"><span>{type === 'femi9' ? 'FEMI9 3D' : 'FEMI9 STORE'}</span><strong>FASHION<br/>IN MOTION.</strong><small>{type === 'femi9' ? '3D commerce / immersive' : 'Modern fashion storefront'}</small></div>
+      <div className="femi-orb"/>
+      <div className="femi-card"><b>NEW DROP</b><span>SS26</span></div>
+      <div className="femi-chip">EXPLORE COLLECTION →</div>
+    </div>
+  );
+
   return (
     <div className="project-preview project-preview--crypto" aria-hidden="true">
       <div className="preview-grid" />
@@ -42,7 +72,22 @@ function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
   const cardIsInView = useInView(cardRef, { once: true, margin: '-60px' });
   return (
-    <motion.div ref={cardRef} className="project-card card" initial={{ opacity: 0, y: 32 }} animate={cardIsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: index * 0.12 }}>
+    <motion.div
+      ref={cardRef}
+      className={`project-card card${project.liveUrl ? ' project-card--clickable' : ''}`}
+      role={project.liveUrl ? 'link' : undefined}
+      tabIndex={project.liveUrl ? 0 : undefined}
+      onClick={() => project.liveUrl && window.open(project.liveUrl, '_blank', 'noopener,noreferrer')}
+      onKeyDown={(event) => {
+        if (project.liveUrl && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+        }
+      }}
+      initial={{ opacity: 0, y: 32 }}
+      animate={cardIsInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.55, delay: index * 0.12 }}
+    >
       <div className="project-card__preview"><ProjectPreview type={project.type} /></div>
       <div className="project-card__body">
         <div className="project-card__meta"><span className="project-card__category">{project.category}</span></div>
@@ -50,8 +95,8 @@ function ProjectCard({ project, index }) {
         <p className="project-card__desc">{project.shortDescription}</p>
         <div className="project-card__tech">{project.technologies.map(tech => <span key={tech} className="tech-badge">{tech}</span>)}</div>
         <div className="project-card__actions">
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm"><GithubIcon size={14}/>GitHub</a>
-          {project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm"><ExternalLink size={14}/>Live Demo</a> : <span className="btn btn-disabled btn-sm"><ExternalLink size={14}/>Live Demo</span>}
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="btn btn-outline btn-sm"><GithubIcon size={14}/>GitHub</a>
+          {project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} className="btn btn-ghost btn-sm"><ExternalLink size={14}/>Live Demo</a> : <span className="btn btn-disabled btn-sm"><ExternalLink size={14}/>Live Demo</span>}
         </div>
       </div>
     </motion.div>
